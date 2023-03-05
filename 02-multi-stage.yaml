@@ -1,0 +1,43 @@
+trigger:          # Indicates when to start this pipeline; 'None' can also be specified
+  - main          # main indicates to start the pipeline when code is pushed in to main branch
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+  - stage: BuildStage
+    displayName: Build Stage
+    jobs:
+      - job: FirstBuildJob
+        displayName: First Build Job
+        steps:
+          - script: echo "This is your first yaml pipeline"
+            displayName: echo step
+
+      - job: TwoBuildJob
+        displayName: First Build Job
+        steps:
+          - script: echo "This is your first yaml pipeline"
+            displayName: echo step
+
+  - stage: TestStage
+    displayName: First Test Stage
+    jobs:
+      - job: FirstTestJob
+        displayName: First Test Job
+        steps:
+          - script: echo "This is your first test pipeline"
+            displayName: echo step
+
+  - stage: DevDeploy
+    displayName: DevDeployStage
+    dependsOn: [TestStage]
+    jobs:
+     - deployment: DeployJob
+       displayName: Deploy to Development Env Job
+       environment: Development
+       stratergy:
+         runOnce:
+            deploy:
+              steps:
+
