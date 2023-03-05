@@ -1,0 +1,15 @@
+trigger: none
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+  - stage: BuildStage
+    displayName: Build Stage
+    jobs:
+      - job: BuildJob
+        displayName: Build Job
+        steps:
+          - script: echo "This is your First yaml pipeline"
+            displayName: echo step
+            
